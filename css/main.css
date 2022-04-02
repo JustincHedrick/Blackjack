@@ -1,34 +1,127 @@
-body {
-  box-sizing: border-box ;
-  background-color: #35654d;
-  display: grid;
-  grid-template-columns: 40vh 50vh 40vh;
-  grid-template-rows: repeat(4, 10vw);
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+* {
+  box-sizing: border-box;
 }
 
-.dealer-hand { 
-  grid-area: 1 / 2 / 3 / 3; 
+body {
+  min-height: 100vh;
+  background-color: rgb(81, 80, 77);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0;
+}
+
+.board {
+  background-color: rgb(22, 108, 22);
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  height: 80vmin;
+  width: 170vmin;
+  max-width: 100%;
+  margin: 10px 0 0 0;
+  overflow: hidden;
+  text-align: center;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  justify-content: space-evenly;
+  padding: 
+}
+
+#bank-roll, #dealt-hands, #deck-deal {
   border: 5px solid black;
+  display: flex;
+  height: 70vmin;
+  margin-top: 5vmin;
 }
-.player-hand { 
-  grid-area: 3 / 2 / 5 / 3; 
-   border: 5px solid black;
+
+#bank-roll {
+  margin-left: 5vmin;
+  width: 30vmin;
 }
-.deck-deal { 
-  grid-area: 2 / 3 / 4 / 4; 
-   border: 5px solid black;
+
+#dealt-hands {
+  width: 60vmin;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
 }
-.bank-wager { 
-  grid-area: 2 / 1 / 3 / 2; 
-   border: 5px solid black;
+
+#dealer {
+  border: 2px solid black;
+  width: 40vmin;
+  height: 30vmin;
 }
-.hit-stay { 
-  grid-area: 3 / 1 / 4 / 2; 
-   border: 5px solid black;
+
+#player {
+  border: 2px solid black;
+  width: 40vmin;
+  height: 30vmin;
 }
-.chips { 
-  grid-area: 4 / 1 / 5 / 2; 
-   border: 5px solid black;
+
+#deck-deal {
+  margin-right: 5vmin;
+  width: 40vmin;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#deck {
+  border: 2px solid black;
+  position: relative;
+  height: 25vmin;
+  width: 20vmin;
+  background-color: red;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  height: 15vmin;
+  width: 170vmin;
+  padding: 1vmin 0 1vmin 0;
+  background-color: #966F33;
+  justify-content: flex-start
+}
+
+#coin-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 52vmin;
+}
+
+#blue, #red, #black {
+  border-radius: 50%;
+  width: 12vmin;
+  border: 1px solid black;
+}
+
+#black {
+  background-color: black;
+}
+
+#red {
+  background-color: red;
+}
+
+#blue {
+  background-color: blue;
+}
+
+#deal {
+  display: flex;
+  width: 55vmin;
+  justify-content: center;
+  align-items: center;
+}
+
+#deal button {
+  width: 18vmin;
+  height: 10vmin;
 }
