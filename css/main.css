@@ -37,9 +37,41 @@ body {
 }
 
 #bank-roll {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  justify-content: space-evenly;
   margin-left: 5vmin;
   width: 30vmin;
 }
+
+#bank-total {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  height: 8vmin;
+  width: 15vmin;
+  align-items: center;
+  justify-content:space-between
+}
+
+#bank-total p {
+}
+
+#wager {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+#hit-stay {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+
 
 #dealt-hands {
   width: 60vmin;
@@ -51,15 +83,30 @@ body {
 }
 
 #dealer {
+  display: flex;
+  position: relative;
   border: 2px solid black;
-  width: 40vmin;
+  width: 55vmin;
   height: 30vmin;
+}
+
+#total-dealer {
+  border: 1px solid black;
+  width: 15vmin;
+  height: 5vmin;
 }
 
 #player {
   border: 2px solid black;
-  width: 40vmin;
+  width: 55vmin;
   height: 30vmin;
+}
+
+#total-player {
+  border: 1px solid black;
+  width: 15vmin;
+  height: 5vmin;
+  justify-content: center;
 }
 
 #deck-deal {
@@ -92,26 +139,28 @@ body {
 
 #coin-container {
   display: flex;
+  overflow: hidden;
+  position: relative;
   justify-content: space-evenly;
   width: 52vmin;
+  height: 12.1vmin;
 }
 
-#blue, #red, #black {
-  border-radius: 50%;
+#ten, #twenty-five, #hundred {
   width: 12vmin;
-  border: 1px solid black;
+  height: 15vmin;
 }
 
-#black {
-  background-color: black;
+#hundred {
+  background-image: url("/css/chips-images/100-chip.svg");
 }
 
-#red {
-  background-color: red;
+#twenty-five {
+  background-image: url("/css/chips-images/25-chip.svg");
 }
 
-#blue {
-  background-color: blue;
+#ten {
+  background-image: url("/css/chips-images/10-chip.svg");
 }
 
 #deal {
@@ -122,6 +171,7 @@ body {
 }
 
 #deal button {
-  width: 18vmin;
-  height: 10vmin;
+  height: 8vmin;
+  width: 20vmin;
 }
+
