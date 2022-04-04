@@ -11,7 +11,7 @@ const betAmounts = {
   black: 100,
 }
 /*----- app's state (variables) -----*/
-let winner;
+let gameStatus;
 let playerHand = [];
 let dealerHand = [];
 let deck = [];
@@ -29,4 +29,33 @@ let playerTotalEl = document.getElementById('total-player');
 let dealerTotalEl = document.getElementById('total-dealer');
 let deckEl = document.getElementById('deck');
 /*----- event listeners -----*/
+chipEl.addEventListener('click', getWager);
+dealButtonEl.addEventListener('click', dealCards);
+hitButtonEl.addEventListener('click', playerHit);
+stayButtonEl.addEventListener('click', playerStay);
 /*----- functions -----*/
+init();
+
+function init() {
+  render();
+};
+
+function getWager(evt) {
+  console.log(evt.target);
+};
+
+function dealCards(evt) {
+  console.log(evt.target);
+}
+
+function playerHit(evt) {
+  console.log(evt.target);
+}
+
+function playerStay(evt) {
+  console.log(evt.target);
+}
+
+function render() {
+
+}
