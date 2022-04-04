@@ -26,7 +26,6 @@ body {
   border-top-left-radius: 5%;
   border-top-right-radius: 5%;
   justify-content: space-evenly;
-  padding: 
 }
 
 #bank-roll, #dealt-hands, #deck-deal {
@@ -56,8 +55,6 @@ body {
   justify-content:space-between
 }
 
-#bank-total p {
-}
 
 #wager {
   display: flex;
