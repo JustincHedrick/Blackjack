@@ -2,20 +2,21 @@
 const players = [
   {'1': 'player', wager:0, score: 0},
   {'-1': 'dealer', score: 0}
-]
+];
 const cardSuits = ['s', 'c', 'd', 'h'];
-const cardrank = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
+const cardRank = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
+const masterDeck = buildDeck();
 const betAmounts = {
-  blue: 10,
-  green: 25,
-  black: 100,
-}
+  ten: 10,
+  twenty: 25,
+  hundred: 100,
+};
 /*----- app's state (variables) -----*/
 let gameStatus;
 let playerHand = [];
 let dealerHand = [];
-let deck = [];
 let aceCount;
+let shuffledDeck;
 /*----- cached element references -----*/
 let dealButtonEl = document.getElementById('deal-button');
 let hitButtonEl = document.getElementById('hit-button');
@@ -37,7 +38,31 @@ stayButtonEl.addEventListener('click', playerStay);
 init();
 
 function init() {
+  buildDeck();
+  newShuffle();
   render();
+};
+
+
+function buildDeck() {
+  const deck = [];
+  cardSuits.forEach(function(suit){
+    cardRank.forEach(function(rank){
+      deck.push({
+        face: `${suit}${rank}`,
+        value: Number(rank) || (rank === 'A' ? 11 : 10)
+      })
+    })
+  }) 
+}
+
+function newShuffle() {
+  const tempDeck = [...masterDeck];
+  const newShuffledDeck = [];
+  while (tempDeck.length) {
+    const rndIdx = Math.floor(Math.random() * tempDeck.length);
+    newShuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
+  };
 };
 
 function getWager(evt) {
@@ -55,6 +80,10 @@ function playerHit(evt) {
 function playerStay(evt) {
   console.log(evt.target);
 }
+
+function compareValue() {
+
+};
 
 function render() {
 
