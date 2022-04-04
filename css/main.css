@@ -13,7 +13,7 @@ body {
 }
 
 .board {
-  background-color: rgb(22, 108, 22);
+  background-color: white;
   display: flex;
   position: relative;
   flex-direction: row;
@@ -40,7 +40,7 @@ body {
   flex-direction: column;
   position: relative;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin-left: 5vmin;
   width: 30vmin;
 }
@@ -48,27 +48,39 @@ body {
 #bank-total {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   height: 8vmin;
   width: 15vmin;
+  margin-bottom: -1.5vmin;
   align-items: center;
   justify-content:space-between
 }
 
-
 #wager {
   display: flex;
+  position: static;
+  height: 15vmin;
   flex-direction: column;
-  border: 1px solid black;
+  justify-content: space-evenly;
+}
+
+#total-static {
+  display: flex;
+  margin-bottom: -1vmin;
+}
+
+#total-wager {
+  display: flex;
+  height: 5vmin;
+  justify-content: center;
 }
 
 #hit-stay {
   display: flex;
+  position: relative;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  visibility: hidden;
 }
-
-
 
 #dealt-hands {
   width: 60vmin;
@@ -110,17 +122,17 @@ body {
   margin-right: 5vmin;
   width: 40vmin;
   display: flex;
+  flex-wrap: wrap;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 #deck {
-  border: 2px solid black;
-  position: relative;
-  height: 25vmin;
-  width: 20vmin;
-  background-color: red;
+  display: flex;
+  height: 10vmin;
+  width: 4vmin;
 }
 
 .bottom {
@@ -167,7 +179,8 @@ body {
   align-items: center;
 }
 
-#deal button {
+#deal-button {
+  visibility: hidden;
   height: 8vmin;
   width: 20vmin;
 }
