@@ -13,8 +13,8 @@ const betAmounts = {
 };
 /*----- app's state (variables) -----*/
 let gameStatus;
-let playerHand;
-let dealerHand;
+let playerHand = [];
+let dealerHand = [];
 let aceCount;
 let shuffledDeck;
 let totalWager = 0;
@@ -90,21 +90,30 @@ function dealCards(evt) {
     chipEl.style.pointerEvents = 'none';
     dealButtonEl.style.pointerEvents = 'none';
   };
-  dealHand(shuffledDeck, playerHand);
+  dealHand(shuffledDeck, playerHand, dealerHand);
+  
 };
 
 
 function playerHit(evt) {
 
   if (evt.target.id === 'hit-btn') {
-    addCard(shuffledDeck, playerHand)
+    addCard(shuffledDeck, playerHand);
     cardCalc(playerHand);
   };
-}
+  getWinner();
+};
 
 function playerStay(evt) {
+  while (dealerHand.score <= 17) {
+    addCard(shuffledDeck, dealerHand);
+    cardCalc(playerHand);
+    return dealerHand.score;
+  }
 
+  getWinner();
 };
+
 
 
 function cardCalc(hand) {
@@ -122,19 +131,23 @@ function cardCalc(hand) {
   return total;
 };
 
-function dealHand(deck, hand) {
-  const card1 = pickCard(shuffledDeck);
-  const card2 = pickCard(shuffledDeck);
+function dealHand(deck, hand, hand1) {
+  const card1 = pickCard(deck);
+  const card2 = pickCard(deck);
+  const card3 = pickCard(deck);
+  const card4 = pickCard(deck);
 
-  hand.push([card1, card2])
+  hand.push(card1, card2);
+  hand1.push(card3, card4);
   hand.score = cardCalc(hand);
-
-  return hand;
+  hand1.score = cardCalc(hand1);
+  
+  return hand, hand1;
 };
 
 function addCard(deck, hand) {
   const newCard = pickCard(deck);
-  hand.cards.push(newCard);
+  hand.push(newCard);
   hand.score = cardCalc(hand);
 
   return hand;
@@ -142,6 +155,7 @@ function addCard(deck, hand) {
 
 function pickCard(deck) {
   const newCard = shuffledDeck.shift();
+
   return newCard;
 };
 
