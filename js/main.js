@@ -13,14 +13,14 @@ const betAmounts = {
 };
 /*----- app's state (variables) -----*/
 let gameStatus;
-let playerHand = {};
-let dealerHand = [];
+let playerHand;
+let dealerHand;
 let aceCount;
 let shuffledDeck;
 let totalWager = 0;
 let bankTotal = 1000;
-let playerScore = 0;
-let dealerScore = 0;
+let playerScore;
+let dealerScore;
 /*----- cached element references -----*/
 let dealButtonEl = document.getElementById('deal-button');
 let hitStayEl = document.getElementById('hit-stay');
@@ -79,7 +79,8 @@ function getWager(evt) {
   if (evt.target.id === 'hundred') totalWager += betAmounts.hundred;
   if (totalWager > 0) dealButtonEl.style.visibility = 'visible';
   totalWagerEl.innerHTML = `${totalWager}`;
-  return totalWager;
+  bankTotal -= totalWager;
+  return totalWager, bankTotal;
 };
 
 function dealCards(evt) {
@@ -87,22 +88,66 @@ function dealCards(evt) {
     bankEl.innerHTML = bankTotal - totalWager;
     hitStayEl.style.visibility = 'visible';
     chipEl.style.pointerEvents = 'none';
+    dealButtonEl.style.pointerEvents = 'none';
   };
-  playerHand = [shuffledDeck.shift(), shuffledDeck.shift()];
-  dealerHand = [shuffledDeck.shift(), shuffledDeck.shift()];
+  dealHand(shuffledDeck, playerHand);
 };
 
 
 function playerHit(evt) {
-  playerScore = 0;
+
   if (evt.target.id === 'hit-btn') {
-    playerHand.push(shuffledDeck.shift());
+    addCard(shuffledDeck, playerHand)
+    cardCalc(playerHand);
   };
-};
+}
 
 function playerStay(evt) {
 
 };
+
+
+function cardCalc(hand) {
+  let total = 0;
+  aceCount = 0;
+
+  hand.forEach((card) => {
+    if (card.value === 10) total += 10;
+    if (card.value < 10) total += card.value;
+    if (card.value === 11) aceCount += 1;
+  });
+
+  for (let i = 0; i < aceCount; i++) total > 10 ? (total += 1) : (total += 11);
+
+  return total;
+};
+
+function dealHand(deck, hand) {
+  const card1 = pickCard(shuffledDeck);
+  const card2 = pickCard(shuffledDeck);
+
+  hand.push([card1, card2])
+  hand.score = cardCalc(hand);
+
+  return hand;
+};
+
+function addCard(deck, hand) {
+  const newCard = pickCard(deck);
+  hand.cards.push(newCard);
+  hand.score = cardCalc(hand);
+
+  return hand;
+};
+
+function pickCard(deck) {
+  const newCard = shuffledDeck.shift();
+  return newCard;
+};
+
+function getWinner() {
+
+}
 
 function render() {
 };
