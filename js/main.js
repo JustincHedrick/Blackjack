@@ -99,6 +99,11 @@ function dealCards(evt) {
   renderCard(playerHand, playerHandEl);
   renderCard(dealerHand, dealerHandEl);
   messageEl.innerHTML = `You have ${playerHand.score} and dealer shows ${dealerHand[0].value}. Hit or stay?`
+  if (playerHand.score === 21) {
+    gameStatus.roundWon = true;
+    messageEl.innerText = `BLACKJACK! You hit ${playerHand.score}.`;
+  }
+  resetGame();
 };
 
 
@@ -111,7 +116,13 @@ function playerHit(evt) {
   renderCard(playerHand, playerHandEl);
   if (playerHand.score > 21) {
     messageEl.innerHTML = `BUSTED. You have ${playerHand.score}.`
+    gameStatus.roundLost = true;
+  } 
+  if (playerHand.score === 21) {
+    gameStatus.roundWon = true;
+    messageEl.innerText = `BLACKJACK! You hit ${playerHand.score}.`;
   }
+  resetGame();
 };
 
 function playerStay(evt) {
@@ -178,12 +189,6 @@ function getWinner() {
   let playerTotal = playerHand.score;
   let dealerTotal = dealerHand.score;
 
- if (playerTotal === 21) {
-    gameStatus.roundWon = true;
-    stayButtonEl.style.pointerEvents = 'none';
-    messageEl.innerText = `BLACKJACK! You hit ${playerTotal}.`;
-    return;
- }; 
  if (playerTotal < 21) {
     if (dealerTotal > playerTotal) {
         gameStatus.roundLost = true;
@@ -219,6 +224,8 @@ function resetGame () {
   if (status.roundLost || status.roundWon || status.roundTie === true) {
     resetEl.style.visibility = 'visible';
     resetEl.innerHTML = `New hand`
+    hitButtonEl.style.pointerEvents = 'none';
+    stayButtonEl.style.pointerEvents = 'none';
   }
 };
 
@@ -229,5 +236,16 @@ function render() {
   totalWager = 0;
   totalWagerEl.innerHTML = 0;
   bankEl.innerHTML = bankTotal;
-
-}
+  chipEl.style.pointerEvents = 'auto';
+  dealButtonEl.style.pointerEvents = 'auto';
+  dealButtonEl.style.visibility = 'hidden';
+  hitStayEl.style.visibility = 'hidden';
+  hitButtonEl.style.pointerEvents = 'auto'
+  stayButtonEl.style.pointerEvents = 'auto';
+  renderCard(playerHand, playerHandEl);
+  renderCard(dealerHand, dealerHandEl);
+  gameStatus.roundLost = false;
+  gameStatus.roundTie = false;
+  gameStatus.roundWon = false;
+  resetEl.style.visibility = 'hidden';
+};
