@@ -24,10 +24,10 @@ let dealerScore;
 /*----- cached element references -----*/
 let dealButtonEl = document.getElementById('deal-button');
 let hitStayEl = document.getElementById('hit-stay');
-let hitButtonEl = document.getElementById('hit-button');
+let hitButtonEl = document.getElementById('hit-btn');
 let stayButtonEl = document.getElementById('stay-button');
 let chipEl = document.getElementById('coin-container'); 
-let wagerEl = document.getElementById('wager-total');
+// let wagerEl = document.getElementById('wager-total');
 let totalWagerEl = document.getElementById('total-wager');
 let bankEl = document.getElementById('bank');
 let playerHandEl = document.getElementById('player');
@@ -79,8 +79,8 @@ function getWager(evt) {
   if (evt.target.id === 'hundred') totalWager += betAmounts.hundred;
   if (totalWager > 0) dealButtonEl.style.visibility = 'visible';
   totalWagerEl.innerHTML = `${totalWager}`;
-  bankTotal -= totalWager;
-  return totalWager, bankTotal;
+  bankTotal = bankTotal - totalWager;
+  // return totalWager, bankTotal;
 };
 
 function dealCards(evt) {
@@ -99,23 +99,24 @@ function dealCards(evt) {
 
 
 function playerHit(evt) {
-
   if (evt.target.id === 'hit-btn') {
     addCard(shuffledDeck, playerHand);
     cardCalc(playerHand);
     playerTotalEl.innerText = playerHand.score;
   };
-  getWinner();
   renderCard(playerHand, playerHandEl);
+  getWinner();
 };
 
 function playerStay() {
+  hitButtonEl.style.pointerEvents = 'none';
   while (dealerHand.score <= 17) {
     addCard(shuffledDeck, dealerHand);
     cardCalc(playerHand);
+    renderCard(dealerHand, dealerHandEl);
     return dealerHand.score;
   }
-
+  
   getWinner();
 };
 
