@@ -19,8 +19,6 @@ let aceCount;
 let shuffledDeck;
 let totalWager = 0;
 let bankTotal = 1000;
-let playerScore;
-let dealerScore;
 /*----- cached element references -----*/
 let dealButtonEl = document.getElementById('deal-button');
 let hitStayEl = document.getElementById('hit-stay');
@@ -33,13 +31,15 @@ let playerHandEl = document.getElementById('player');
 let dealerHandEl = document.getElementById('dealer');
 let playerTotalEl = document.getElementById('total-player');
 let dealerTotalEl = document.getElementById('total-dealer');
-let deckEl = document.getElementById('deck-img');
+let deckEl = document.getElementById('deck');
+let resetEl = document.getElementById('reset-btn')
 let messageEl = document.getElementById('message');
 /*----- event listeners -----*/
 chipEl.addEventListener('click', getWager);
 dealButtonEl.addEventListener('click', dealCards);
 hitButtonEl.addEventListener('click', playerHit);
 stayButtonEl.addEventListener('click', playerStay);
+resetEl.addEventListener('click', init)
 /*----- functions -----*/
 init();
 
@@ -83,12 +83,12 @@ function getWager(evt) {
   }
   totalWagerEl.innerHTML = `${totalWager}`;
   bankTotal -= totalWager;
-  // return totalWager, bankTotal;
+  return totalWager, bankTotal;
 };
 
 function dealCards(evt) {
   if (evt.target.id === 'deal-button') {
-    bankEl.innerHTML = bankTotal - totalWager;
+    bankEl.innerHTML = bankTotal;
     hitStayEl.style.visibility = 'visible';
     chipEl.style.pointerEvents = 'none';
     dealButtonEl.style.pointerEvents = 'none';
@@ -98,7 +98,7 @@ function dealCards(evt) {
   dealerTotalEl.innerText = dealerHand[0].value;
   renderCard(playerHand, playerHandEl);
   renderCard(dealerHand, dealerHandEl);
-  getWinner();
+  messageEl.innerHTML = `You have ${playerHand.score} and dealer shows ${dealerHand[0].value}. Hit or stay?`
 };
 
 
@@ -106,19 +106,24 @@ function playerHit(evt) {
   if (evt.target.id === 'hit-btn') {
     addCard(shuffledDeck, playerHand);
     cardCalc(playerHand);
-    playerTotalEl.innerText = playerHand.score;
+    messageEl.innerHTML = `You have ${playerHand.score}, dealer shows ${dealerHand[0].value}. Hit or stay?`
   };
   renderCard(playerHand, playerHandEl);
-  getWinner();
+  if (playerHand.score > 21) {
+    messageEl.innerHTML = `BUSTED. You have ${playerHand.score}.`
+  }
 };
 
-function playerStay() {
+function playerStay(evt) {
   hitButtonEl.style.pointerEvents = 'none';
+  
+  if (evt.target.id === 'stay-btn');
   while (dealerHand.score <= 17) {
     addCard(shuffledDeck, dealerHand);
-    cardCalc(playerHand);
+    cardCalc(dealerHand);
     renderCard(dealerHand, dealerHandEl);
-    return dealerHand.score;
+    // stayButtonEl.style.pointerEvents = 'none';
+    // return dealerHand.score;
   }
   
   getWinner();
@@ -175,13 +180,29 @@ function getWinner() {
 
  if (playerTotal === 21) {
     gameStatus.roundWon = true;
-    messageEl.innerText = `BLACKJACK! You hit ${playerTotal}. Place a bet to deal`;
- } else if (playerTotal < 21 && dealerTotal < 21) {
-    messageEl.innerText = `You have ${playerTotal}, dealer shows ${dealerHand[0].value}. Hit or stay?`
- } else if (playerTotal > 21) {
-   gameStatus.roundLost = true;
-    messageEl.innerText = `BUST! Dealer wins. You have ${playerTotal} and dealer has ${dealerTotal}.`
- }
+    stayButtonEl.style.pointerEvents = 'none';
+    messageEl.innerText = `BLACKJACK! You hit ${playerTotal}.`;
+    return;
+ }; 
+ if (playerTotal < 21) {
+    if (dealerTotal > playerTotal) {
+        gameStatus.roundLost = true;
+        messageEl.innerHTML = `DEALER WINS. Dealer has ${dealerTotal} and you have ${playerTotal}.`
+      } else if (dealerTotal < playerTotal) {
+        gameStatus.roundWon =true;
+        messageEl.innerHTML = `PLAYER WINS. Player has ${playerTotal} and dealer has ${dealerTotal}.`
+      };
+ }; 
+ if (playerTotal === dealerTotal) {
+   gameStatus.roundTie = true;
+   messageEl.innerHTML = `PUSH. Dealer and player have ${playerTotal}.`
+ }; 
+ if (dealerTotal > 21) {
+   gameStatus.roundWon = true;
+   messageEl.innerHTML = `DEALER BUST. Dealer has ${dealerTotal}.`;
+ };
+
+ resetGame();
 };
 
 function renderCard(deck, container) {
@@ -193,6 +214,20 @@ function renderCard(deck, container) {
   container.innerHTML = cardsHtml;
 };
 
+function resetGame () {
+  let status = gameStatus;
+  if (status.roundLost || status.roundWon || status.roundTie === true) {
+    resetEl.style.visibility = 'visible';
+    resetEl.innerHTML = `New hand`
+  }
+};
+
 function render() {
-  messageEl.innerText = 'Place a your bet!'
+  messageEl.innerText = 'Place your bet!'
+  dealerHand = [];
+  playerHand = [];
+  totalWager = 0;
+  totalWagerEl.innerHTML = 0;
+  bankEl.innerHTML = bankTotal;
+
 }
