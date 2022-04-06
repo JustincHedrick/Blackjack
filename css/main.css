@@ -190,3 +190,12 @@ body {
   width: 20vmin;
 }
 
+#message {
+  display: flex;
+  border: 1px solid black;
+  position: relative;
+  width: 55vmin;
+  justify-content: center;
+  align-items: center;
+}
+
