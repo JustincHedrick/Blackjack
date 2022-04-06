@@ -34,7 +34,7 @@ let playerHandEl = document.getElementById('player');
 let dealerHandEl = document.getElementById('dealer');
 let playerTotalEl = document.getElementById('total-player');
 let dealerTotalEl = document.getElementById('total-dealer');
-let deckEl = document.getElementById('deck');
+let deckEl = document.getElementById('deck-img');
 /*----- event listeners -----*/
 chipEl.addEventListener('click', getWager);
 dealButtonEl.addEventListener('click', dealCards);
@@ -91,7 +91,10 @@ function dealCards(evt) {
     dealButtonEl.style.pointerEvents = 'none';
   };
   dealHand(shuffledDeck, playerHand, dealerHand);
-  
+  playerTotalEl.innerText = playerHand.score;
+  dealerTotalEl.innerText = dealerHand[0].value;
+  renderCard(playerHand, playerHandEl);
+  renderCard(dealerHand, dealerHandEl)
 };
 
 
@@ -100,11 +103,13 @@ function playerHit(evt) {
   if (evt.target.id === 'hit-btn') {
     addCard(shuffledDeck, playerHand);
     cardCalc(playerHand);
+    playerTotalEl.innerText = playerHand.score;
   };
   getWinner();
+  renderCard(playerHand, playerHandEl);
 };
 
-function playerStay(evt) {
+function playerStay() {
   while (dealerHand.score <= 17) {
     addCard(shuffledDeck, dealerHand);
     cardCalc(playerHand);
@@ -163,5 +168,15 @@ function getWinner() {
 
 }
 
-function render() {
+function renderCard(deck, container) {
+  container.innerHTML = '';
+   let cardsHtml = '';
+  deck.forEach(function(card) {
+    cardsHtml += `<div class="card ${card.face}"></div>`;
+  });
+  container.innerHTML = cardsHtml;
 };
+
+function render() {
+  
+}

@@ -13,7 +13,7 @@ body {
 }
 
 .board {
-  background-color: white;
+  background-color: green;
   display: flex;
   position: relative;
   flex-direction: row;
@@ -28,8 +28,8 @@ body {
   justify-content: space-evenly;
 }
 
-#bank-roll, #dealt-hands, #deck-deal {
-  border: 5px solid black;
+#bank-roll, #dealt-hands, #deck {
+  /* border: 5px solid black; */
   display: flex;
   height: 70vmin;
   margin-top: 5vmin;
@@ -94,19 +94,19 @@ body {
 #dealer {
   display: flex;
   position: relative;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   width: 55vmin;
   height: 30vmin;
 }
 
 #total-dealer {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 15vmin;
   height: 5vmin;
 }
 
 #player {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   width: 55vmin;
   height: 30vmin;
 }
@@ -118,7 +118,7 @@ body {
   justify-content: center;
 }
 
-#deck-deal {
+#deck {
   margin-right: 5vmin;
   width: 40vmin;
   display: flex;
@@ -129,7 +129,7 @@ body {
   align-items: center;
 }
 
-#deck {
+#deck-img {
   display: flex;
   height: 10vmin;
   width: 4vmin;
