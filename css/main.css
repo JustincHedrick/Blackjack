@@ -174,15 +174,16 @@ body {
 }
 
 #hundred {
-  background-image: url("/css/chips-images/100-chip.svg");
+  background-image: url("./chips-images/100-chip.svg");
 }
 
 #twenty-five {
-  background-image: url("/css/chips-images/25-chip.svg");
+  background-image: url("./chips-images/25-chip.svg");
 }
 
 #ten {
-  background-image: url("/css/chips-images/10-chip.svg");
+  
+  background-image: url("./chips-images/10-chip.svg");
 }
 
 #deal {
