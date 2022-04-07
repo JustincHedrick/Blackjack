@@ -82,13 +82,11 @@ function getWager(evt) {
      messageEl.innerText = 'Deal cards!'
   }
   totalWagerEl.innerHTML = `${totalWager}`;
-  bankTotal -= totalWager;
   return totalWager, bankTotal;
 };
 
 function dealCards(evt) {
   if (evt.target.id === 'deal-button') {
-    bankEl.innerHTML = bankTotal;
     hitStayEl.style.visibility = 'visible';
     chipEl.style.pointerEvents = 'none';
     dealButtonEl.style.pointerEvents = 'none';
@@ -206,7 +204,7 @@ function getWinner() {
    gameStatus.roundWon = true;
    messageEl.innerHTML = `DEALER BUST. Dealer has ${dealerTotal}.`;
  };
-
+ 
  resetGame();
 };
 
@@ -226,6 +224,23 @@ function resetGame () {
     resetEl.innerHTML = `New hand`
     hitButtonEl.style.pointerEvents = 'none';
     stayButtonEl.style.pointerEvents = 'none';
+    if (status.roundWon === true) {
+      bankTotal += totalWager *2;
+      bankEl.innerHTML = `${bankTotal}`;
+    }
+     if (status.roundTie === true) {
+      bankTotal += totalWager;
+      bankEl.innerHTML = `${bankTotal}`;
+    } 
+    if (status.roundLost === true) {
+      bankTotal -= totalWager;
+      bankEl.innerHTML = `${bankTotal}`
+      if (bankTotal === 0) {
+        messageEl.innerHTML = `Don't worry, atleast we aren't in vegas! Try again.`
+        bankTotal = 1000;
+        bankEl.innerHTML = `${bankTotal}`
+      }
+    };
   }
 };
 
