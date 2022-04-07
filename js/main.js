@@ -235,7 +235,7 @@ function resetGame () {
     if (status.roundLost === true) {
       bankTotal -= totalWager;
       bankEl.innerHTML = `${bankTotal}`
-      if (bankTotal === 0) {
+      if (bankTotal <= 0) {
         messageEl.innerHTML = `Don't worry, atleast we aren't in vegas! Try again.`
         bankTotal = 1000;
         bankEl.innerHTML = `${bankTotal}`;
