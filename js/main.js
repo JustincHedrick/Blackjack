@@ -232,6 +232,11 @@ function resetGame () {
       bankTotal += totalWager;
       bankEl.innerHTML = `${bankTotal}`;
     } 
+    };
+     if (status.roundTie === true) {
+      bankTotal += totalWager;
+      bankEl.innerHTML = `${bankTotal}`;
+    }; 
     if (status.roundLost === true) {
       bankTotal -= totalWager;
       bankEl.innerHTML = `${bankTotal}`
@@ -240,9 +245,9 @@ function resetGame () {
         bankTotal = 1000;
         bankEl.innerHTML = `${bankTotal}`
       }
+        bankEl.innerHTML = `${bankTotal}`;
+      };
     };
-  }
-};
 
 function render() {
   messageEl.innerText = 'Place your bet!'
