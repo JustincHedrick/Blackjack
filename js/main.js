@@ -17,7 +17,7 @@ let playerHand = [];
 let dealerHand = [];
 let aceCount;
 let shuffledDeck;
-let totalWager = 0;
+let totalWager;
 let bankTotal = 1000;
 /*----- cached element references -----*/
 let dealButtonEl = document.getElementById('deal-button');
@@ -80,7 +80,7 @@ function getWager(evt) {
   if (totalWager > 0) {
      dealButtonEl.style.visibility = 'visible';
      messageEl.innerText = 'Deal cards!'
-  }
+  };
   totalWagerEl.innerHTML = `${totalWager}`;
   return totalWager, bankTotal;
 };
@@ -94,8 +94,8 @@ function dealCards(evt) {
   dealHand(shuffledDeck, playerHand, dealerHand);
   playerTotalEl.innerText = playerHand.score;
   dealerTotalEl.innerText = dealerHand[0].value;
-  renderCard(playerHand, playerHandEl);
-  renderCard(dealerHand, dealerHandEl);
+  renderPlayerCard(playerHand, playerHandEl);
+  renderDealerCard(dealerHand, dealerHandEl);
   messageEl.innerHTML = `You have ${playerHand.score} and dealer shows ${dealerHand[0].value}. Hit or stay?`
   if (playerHand.score === 21) {
     gameStatus.roundWon = true;
@@ -111,7 +111,7 @@ function playerHit(evt) {
     cardCalc(playerHand);
     messageEl.innerHTML = `You have ${playerHand.score}, dealer shows ${dealerHand[0].value}. Hit or stay?`
   };
-  renderCard(playerHand, playerHandEl);
+  renderPlayerCard(playerHand, playerHandEl);
   if (playerHand.score > 21) {
     messageEl.innerHTML = `BUSTED. You have ${playerHand.score}.`
     gameStatus.roundLost = true;
@@ -120,6 +120,7 @@ function playerHit(evt) {
     gameStatus.roundWon = true;
     messageEl.innerText = `BLACKJACK! You hit ${playerHand.score}.`;
   }
+  renderDealerCard(dealerHand, dealerHandEl);
   resetGame();
 };
 
@@ -130,12 +131,12 @@ function playerStay(evt) {
   while (dealerHand.score <= 17) {
     addCard(shuffledDeck, dealerHand);
     cardCalc(dealerHand);
-    renderCard(dealerHand, dealerHandEl);
     // stayButtonEl.style.pointerEvents = 'none';
     // return dealerHand.score;
   }
   
   getWinner();
+  renderDealerCard(dealerHand, dealerHandEl);
 };
 
 
@@ -192,7 +193,7 @@ function getWinner() {
         gameStatus.roundLost = true;
         messageEl.innerHTML = `DEALER WINS. Dealer has ${dealerTotal} and you have ${playerTotal}.`
       } else if (dealerTotal < playerTotal) {
-        gameStatus.roundWon =true;
+        gameStatus.roundWon = true;
         messageEl.innerHTML = `PLAYER WINS. Player has ${playerTotal} and dealer has ${dealerTotal}.`
       };
  }; 
@@ -208,14 +209,21 @@ function getWinner() {
  resetGame();
 };
 
-function renderCard(deck, container) {
+function renderDealerCard(deck, container) {
   container.innerHTML = '';
-   let cardsHtml = '';
-  deck.forEach(function(card) {
-    cardsHtml += `<div class="card ${card.face}"></div>`;
-  });
+  let cardsHtml = '';
+  cardsHtml = dealerHand.map((card, idx) => `<div class="card ${idx === 1 && (!gameStatus.roundLost && !gameStatus.roundTie && !gameStatus.roundWon)  ?'back' : card.face}"></div>`).join('');
   container.innerHTML = cardsHtml;
 };
+
+function renderPlayerCard(deck, container) {
+  container.innerHTML = '';
+  let cardsHtml = '';
+  cardsHtml = playerHand.map(card => `<div class="card ${card.face}"></div>`).join('');
+  container.innerHTML = cardsHtml;
+};
+
+
 
 function resetGame () {
   let status = gameStatus;
@@ -234,7 +242,6 @@ function resetGame () {
     } 
     };
      if (status.roundTie === true) {
-      bankTotal += totalWager;
       bankEl.innerHTML = `${bankTotal}`;
     }; 
     if (status.roundLost === true) {
@@ -262,8 +269,8 @@ function render() {
   hitStayEl.style.visibility = 'hidden';
   hitButtonEl.style.pointerEvents = 'auto'
   stayButtonEl.style.pointerEvents = 'auto';
-  renderCard(playerHand, playerHandEl);
-  renderCard(dealerHand, dealerHandEl);
+  renderPlayerCard(playerHand, playerHandEl);
+  renderDealerCard(dealerHand, dealerHandEl);
   gameStatus.roundLost = false;
   gameStatus.roundTie = false;
   gameStatus.roundWon = false;

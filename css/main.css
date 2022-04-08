@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3.5vmin;
 }
 
 body {
@@ -77,6 +79,7 @@ body {
 #hit-stay {
   display: flex;
   position: relative;
+  width: 10vin;
   flex-direction: row;
   justify-content: space-around;
   visibility: hidden;
@@ -131,6 +134,12 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+#reset-btn {
+  font-size: 2.3vmin;
+  height: 7vmin;
+  width: 15vmin;
 }
 
 #reset-btn {
@@ -207,4 +216,6 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+
 
