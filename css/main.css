@@ -15,7 +15,8 @@ body {
 }
 
 .board {
-  background-color: green;
+  background: url("https://media.istockphoto.com/photos/green-felt-and-playing-chips-abstract-background-picture-id672556284?b=1&k=20&m=672556284&s=612x612&w=0&h=S3Szc7EvvAMdA0U79Amjp4II5lPYNi680NBB7FloL64=");
+  background-size: cover;
   display: flex;
   position: relative;
   flex-direction: row;
@@ -50,54 +51,69 @@ body {
 #bank-total {
   display: flex;
   flex-direction: column;
-  height: 8vmin;
-  width: 15vmin;
+  height: 12vmin;
+  width: 17vmin;
   margin-bottom: -1.5vmin;
   align-items: center;
-  justify-content:space-between
+  justify-content:space-evenly;
+  background-color: gray;
+  border: 5px outset #EEBC1D;
+  opacity: .7;
+  border-radius: 5%;
 }
 
 #wager {
   display: flex;
-  position: static;
-  height: 15vmin;
+  position: relative;
+  height: 12vmin;
+  width: 17vmin;
   flex-direction: column;
   justify-content: space-evenly;
-}
-
-#total-static {
-  display: flex;
-  margin-bottom: -1vmin;
-}
-
-#total-wager {
-  display: flex;
-  height: 5vmin;
-  justify-content: center;
+  background-color: gray;
+  border: 5px outset #EEBC1D;
+  opacity: .7;
+  border-radius: 10%;
 }
 
 #hit-stay {
   display: flex;
   position: relative;
-  width: 10vin;
+  width: 17vmin;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   visibility: hidden;
 } 
+
+#stay-btn {
+  display: flex;
+  background-color: gray;
+  border: 5px outset #EEBC1D;
+  opacity: .7;
+  border-radius: 10%;
+}
+
+#hit-btn {
+  display: flex;
+  background-color: gray;
+  border: 5px outset #EEBC1D;
+  justify-content: center;
+  width: 6.8vmin;
+  opacity: .7;
+  border-radius: 10%;
+}
 
 #dealt-hands {
   width: 60vmin;
   display: flex;
   flex-direction: column;
   position: relative;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
 }
 
 #dealer {
   display: flex;
   position: relative;
-  /* border: 2px solid black; */
   width: 55vmin;
   height: 30vmin;
   justify-content: center;
@@ -110,7 +126,6 @@ body {
 }
 
 #player {
-  /* border: 2px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,7 +134,6 @@ body {
 }
 
 #total-player {
-  
   width: 15vmin;
   height: 5vmin;
   justify-content: center;
@@ -149,12 +163,15 @@ body {
   align-items: center;
   width: 11vmin;
   height: 5vmin;
+  background-color: gray;
+  border: 5px outset #EEBC1D;
 }
 
 #deck-img {
   display: flex;
-  height: 10vmin;
-  width: 4vmin;
+  height: 20vmin;
+  width: 12vmin;
+  background-image: url("/images/backs/blue.svg");
 }
 
 .bottom {
@@ -191,7 +208,6 @@ body {
 }
 
 #ten {
-  
   background-image: url("./chips-images/10-chip.svg");
 }
 
@@ -206,11 +222,13 @@ body {
   visibility: hidden;
   height: 8vmin;
   width: 20vmin;
+  background-color: gray;
+  border: 5px outset #EEBC1D;
 }
 
 #message {
   display: flex;
-  border: 1px solid black;
+  border: 6px double #d4af37;
   position: relative;
   width: 55vmin;
   justify-content: center;

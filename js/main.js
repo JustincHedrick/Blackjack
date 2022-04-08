@@ -13,8 +13,8 @@ const betAmounts = {
   hundred: 100,
 };
 /*----- app's state (variables) -----*/
-let playerHand = [];
-let dealerHand = [];
+let playerHand;
+let dealerHand;
 let aceCount;
 let shuffledDeck;
 let totalWager;
@@ -39,13 +39,15 @@ chipEl.addEventListener('click', getWager);
 dealButtonEl.addEventListener('click', dealCards);
 hitButtonEl.addEventListener('click', playerHit);
 stayButtonEl.addEventListener('click', playerStay);
-resetEl.addEventListener('click', init)
+resetEl.addEventListener('click', init);
 /*----- functions -----*/
 init();
 
 function init() {
   buildDeck();
   newShuffle();
+  playerHand = [];
+  dealerHand = [];
   render();
 };
 
@@ -131,8 +133,6 @@ function playerStay(evt) {
   while (dealerHand.score <= 17) {
     addCard(shuffledDeck, dealerHand);
     cardCalc(dealerHand);
-    // stayButtonEl.style.pointerEvents = 'none';
-    // return dealerHand.score;
   }
   
   getWinner();
@@ -180,7 +180,7 @@ function addCard(deck, hand) {
 
 function pickCard(deck) {
   const newCard = shuffledDeck.shift();
-
+  
   return newCard;
 };
 
